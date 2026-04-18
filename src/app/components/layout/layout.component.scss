@@ -242,43 +242,38 @@
   overflow-y: auto;
 }
 
+// ── Weather badge (topbar, desktop only) ───────────────────────────
+.weather-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--text-2);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.2rem 0.65rem;
+
+  .weather-icon { font-size: 0.95rem; line-height: 1; }
+  .weather-city { color: var(--text-3); }
+  .weather-temp { color: var(--text-1); font-weight: 600; }
+}
+
+// ── Mobile about button (hidden on desktop) ─────────────────────────
+.mobile-about { display: none; }
+
 // ── Responsive / mobile ────────────────────────────────────────────
 @media (max-width: 767px) {
-  .shell { flex-direction: column; }
+  .sidebar { display: none; }
 
-  .sidebar {
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    padding: 0 0.5rem;
-    height: 52px;
-    border-bottom: 1px solid var(--sidebar-border);
-    border-right: none;
+  .weather-badge { display: none; }
 
-    .brand {
-      padding: 0 0.75rem 0 0.25rem;
-      font-size: 1.1rem;
-      border-right: 1px solid var(--sidebar-border);
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
+  .mobile-about {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 0 0.5rem;
 
-    nav {
-      flex-direction: row;
-      gap: 0.4rem;
-      overflow-x: auto;
-      flex: 1;
-      padding: 0 0.25rem;
-
-      a {
-        padding: 0.5rem 0.75rem;
-        margin: 0;
-        white-space: nowrap;
-        border-radius: 6px;
-        font-size: 0.82rem;
-      }
-    }
+    .btn-about { width: auto; padding: 0.65rem 1.5rem; }
   }
 
   .topbar {

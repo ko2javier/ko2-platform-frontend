@@ -7,9 +7,9 @@
   <div class="search-box">
     <span class="search-icon">🔍</span>
     <input
+      #cityInput
       type="text"
       [placeholder]="'WEATHER.SEARCH_PLACEHOLDER' | translate"
-      [value]="city"
       (input)="onSearchInput($event)"
     />
   </div>

@@ -1,14 +1,6 @@
 <div class="shell">
   <aside class="sidebar">
     <div class="brand">KO2</div>
-    <nav>
-      <a routerLink="/dashboard" routerLinkActive="active">
-        <span class="icon">&#9729;</span> {{ 'NAV.WEATHER' | translate }}
-      </a>
-      <a routerLink="/dashboard" routerLinkActive="active">
-        <span class="icon">&#8644;</span> {{ 'NAV.CURRENCY' | translate }}
-      </a>
-    </nav>
     <div class="sidebar-bottom">
       <button class="btn-about" (click)="showAbout = true" [title]="'NAV.ABOUT' | translate">
         <span class="about-icon">ℹ</span>
@@ -20,6 +12,13 @@
   <div class="main">
     <header class="topbar">
       <span class="platform-name">KO2 Platform</span>
+      @if (weather) {
+        <div class="weather-badge">
+          <span class="weather-icon">{{ weatherIcon }}</span>
+          <span class="weather-city">Santander</span>
+          <strong class="weather-temp">{{ weather.current_weather.temperature }}°C</strong>
+        </div>
+      }
       <div class="topbar-actions">
 
         <!-- Segmented language control -->
@@ -48,6 +47,12 @@
     </header>
     <main class="content">
       <router-outlet />
+      <div class="mobile-about">
+        <button class="btn-about" (click)="showAbout = true">
+          <span class="about-icon">ℹ</span>
+          <span class="about-label">{{ 'NAV.ABOUT' | translate }}</span>
+        </button>
+      </div>
     </main>
   </div>
 </div>

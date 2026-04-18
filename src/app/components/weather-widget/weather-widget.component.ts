@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, Subscription, EMPTY } from 'rxjs';
@@ -14,8 +14,10 @@ const HISTORY_KEY = 'weather_city_history';
   templateUrl: './weather-widget.component.html',
   styleUrl: './weather-widget.component.scss'
 })
-export class WeatherWidgetComponent implements OnInit, OnDestroy {
+export class WeatherWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
   private weatherService = inject(WeatherService);
+
+  @ViewChild('cityInput') cityInputRef!: ElementRef<HTMLInputElement>;
 
   city = 'Santander';
   data: WeatherData | null = null;
@@ -23,6 +25,7 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy {
   errorType: 'not-found' | 'network' | null = null;
   cityHistory: string[] = [];
 
+  private pendingCity = 'Santander';
   private search$ = new Subject<string>();
   private sub?: Subscription;
 
@@ -47,6 +50,7 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy {
       })
     ).subscribe(res => {
       this.data = res;
+      this.city = this.pendingCity;
       this.loading = false;
       this.saveToHistory(this.city);
     });
@@ -54,19 +58,22 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy {
     this.search$.next('santander');
   }
 
+  ngAfterViewInit() {
+    this.cityInputRef.nativeElement.value = 'Santander';
+  }
+
   onSearchInput(event: Event) {
     const value = (event.target as HTMLInputElement).value.trim();
-    if (value === '') {
-      this.city = 'Santander';
-      this.search$.next('santander');
-    } else if (value.length >= 2) {
-      this.city = value;
+    if (value.length >= 2) {
+      this.pendingCity = value;
       this.search$.next(value);
     }
   }
 
   selectCity(city: string) {
+    this.pendingCity = city;
     this.city = city;
+    this.cityInputRef.nativeElement.value = city;
     this.search$.next(city.toLowerCase());
   }
 

@@ -4,6 +4,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
 import { AboutPanelComponent } from '../about-panel/about-panel.component';
+import { WeatherService, WeatherData } from '../../services/weather.service';
 
 const LANGS = ['es', 'en', 'de'] as const;
 type Lang = typeof LANGS[number];
@@ -17,16 +18,28 @@ type Lang = typeof LANGS[number];
 export class LayoutComponent implements OnInit {
   private auth = inject(AuthService);
   private translate = inject(TranslateService);
+  private weatherService = inject(WeatherService);
 
   isDark = true;
   currentLang: Lang = 'es';
   readonly langs = LANGS;
   showAbout = false;
+  weather: WeatherData | null = null;
+
+  get weatherIcon(): string {
+    const t = this.weather?.current_weather.temperature ?? 15;
+    return t > 25 ? '☀️' : t > 15 ? '🌤️' : '☁️';
+  }
 
   get langIndex(): number { return this.langs.indexOf(this.currentLang); }
   get username(): string  { return this.auth.getUsername(); }
 
   ngOnInit() {
+    this.weatherService.getWeather('santander').subscribe({
+      next: data => this.weather = data,
+      error: () => {}
+    });
+
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
       this.isDark = false;
