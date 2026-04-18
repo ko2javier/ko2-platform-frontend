@@ -1,0 +1,78 @@
+<div class="widget">
+  <div class="widget-header">
+    <span class="icon">&#9729;</span>
+    <span class="label">{{ 'WEATHER.TITLE' | translate }}</span>
+  </div>
+
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input
+      type="text"
+      [placeholder]="'WEATHER.SEARCH_PLACEHOLDER' | translate"
+      [value]="city"
+      (input)="onSearchInput($event)"
+    />
+  </div>
+
+  @if (cityHistory.length > 0) {
+    <div class="history-chips">
+      @for (h of cityHistory; track h) {
+        <button class="chip" (click)="selectCity(h)">{{ h }}</button>
+      }
+    </div>
+  }
+
+  @if (loading) {
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+    </div>
+  }
+
+  @if (!loading && errorType === 'not-found') {
+    <p class="error">{{ 'WEATHER.ERROR_NOT_FOUND' | translate }}</p>
+  }
+
+  @if (!loading && errorType === 'network') {
+    <p class="error">{{ 'WEATHER.ERROR_NETWORK' | translate }}</p>
+  }
+
+  @if (!loading && data) {
+    <div class="weather-body">
+      <div class="city-row">
+        <span class="city">{{ city }}</span>
+        <span class="badge">{{ weatherDescription }}</span>
+      </div>
+      <div class="temp">{{ data.current_weather.temperature }}°C</div>
+      <div class="details">
+        <span class="detail-item detail-wind">
+          <span class="detail-icon">💨</span>{{ data.current_weather.windspeed }} km/h
+        </span>
+        <span class="detail-item detail-humidity">
+          <span class="detail-icon">💧</span>72%
+        </span>
+        <span class="detail-item detail-vis">
+          <span class="detail-icon">👁</span>10 km
+        </span>
+      </div>
+      <div class="sparkline">
+        <svg width="160" height="56" viewBox="0 0 160 56">
+          @for (bar of sparkBars; track $index) {
+            <rect
+              [attr.x]="$index * 20 + 2"
+              [attr.y]="56 - sparkHeight(bar)"
+              width="16"
+              [attr.height]="sparkHeight(bar)"
+              rx="3"
+              class="spark-bar"
+            />
+          }
+        </svg>
+        <div class="sparkline-labels">
+          <span>00h</span>
+          <span>{{ data.current_weather.temperature }}°</span>
+          <span>23h</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>

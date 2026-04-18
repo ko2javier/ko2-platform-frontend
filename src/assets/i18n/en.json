@@ -1,0 +1,31 @@
+{
+  "NAV": {
+    "WEATHER": "Weather",
+    "CURRENCY": "Currency",
+    "LOGOUT": "Sign out",
+    "THEME_LIGHT": "Light mode",
+    "THEME_DARK": "Dark mode"
+  },
+  "WEATHER": {
+    "TITLE": "Weather",
+    "SEARCH_PLACEHOLDER": "Search city...",
+    "ERROR_NOT_FOUND": "City not found",
+    "ERROR_NETWORK": "Service unavailable"
+  },
+  "CURRENCY": {
+    "TITLE": "Currency",
+    "ERROR": "Could not load exchange rate",
+    "UPDATED": "Updated {{minutes}} min ago",
+    "AMOUNT_PLACEHOLDER": "0.00"
+  },
+  "LOGIN": {
+    "TITLE": "KO2 Platform",
+    "USERNAME_LABEL": "Username",
+    "PASSWORD_LABEL": "Password",
+    "USERNAME_PLACEHOLDER": "Username",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "SUBMIT": "Sign in",
+    "LOADING": "Signing in...",
+    "ERROR": "Incorrect username or password"
+  }
+}

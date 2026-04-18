@@ -1,0 +1,31 @@
+{
+  "NAV": {
+    "WEATHER": "Wetter",
+    "CURRENCY": "Währung",
+    "LOGOUT": "Abmelden",
+    "THEME_LIGHT": "Heller Modus",
+    "THEME_DARK": "Dunkler Modus"
+  },
+  "WEATHER": {
+    "TITLE": "Wetter",
+    "SEARCH_PLACEHOLDER": "Stadt suchen...",
+    "ERROR_NOT_FOUND": "Stadt nicht gefunden",
+    "ERROR_NETWORK": "Dienst nicht verfügbar"
+  },
+  "CURRENCY": {
+    "TITLE": "Währung",
+    "ERROR": "Wechselkurs konnte nicht geladen werden",
+    "UPDATED": "Aktualisiert vor {{minutes}} Min.",
+    "AMOUNT_PLACEHOLDER": "0.00"
+  },
+  "LOGIN": {
+    "TITLE": "KO2 Platform",
+    "USERNAME_LABEL": "Benutzername",
+    "PASSWORD_LABEL": "Passwort",
+    "USERNAME_PLACEHOLDER": "Benutzername",
+    "PASSWORD_PLACEHOLDER": "Passwort",
+    "SUBMIT": "Anmelden",
+    "LOADING": "Anmelden...",
+    "ERROR": "Falscher Benutzername oder Passwort"
+  }
+}

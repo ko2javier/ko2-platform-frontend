@@ -1,0 +1,126 @@
+<div class="widget">
+  <div class="widget-header">
+    <span class="icon">&#8644;</span>
+    <span class="label">{{ 'CURRENCY.TITLE' | translate }}</span>
+  </div>
+
+  <!-- Currencies loading spinner -->
+  @if (currenciesLoading) {
+    <div class="currencies-loading">
+      <div class="mini-spinner"></div>
+    </div>
+  }
+
+  <!-- Pair selector with searchable dropdowns -->
+  @if (!currenciesLoading) {
+    <div class="pair-selector">
+
+      <!-- FROM dropdown -->
+      <div class="custom-select" [class.open]="showFromDropdown" (click)="$event.stopPropagation()">
+        <button class="select-trigger" (click)="toggleFromDropdown()">
+          <span class="select-value">{{ selectedFrom }}</span>
+          <span class="chevron">{{ showFromDropdown ? '▴' : '▾' }}</span>
+        </button>
+        @if (showFromDropdown) {
+          <div class="select-dropdown">
+            <input
+              class="dropdown-search"
+              type="text"
+              [(ngModel)]="fromSearch"
+              placeholder="Buscar..."
+              (click)="$event.stopPropagation()"
+              autofocus
+            />
+            <ul class="dropdown-list">
+              @for (c of filteredFrom; track c) {
+                <li (click)="selectFrom(c)">{{ c }}</li>
+              }
+              @if (filteredFrom.length === 0) {
+                <li class="no-results">—</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <span class="arrow">&#8594;</span>
+
+      <!-- TO dropdown -->
+      <div class="custom-select" [class.open]="showToDropdown" (click)="$event.stopPropagation()">
+        <button class="select-trigger" (click)="toggleToDropdown()">
+          <span class="select-value">{{ selectedTo }}</span>
+          <span class="chevron">{{ showToDropdown ? '▴' : '▾' }}</span>
+        </button>
+        @if (showToDropdown) {
+          <div class="select-dropdown">
+            <input
+              class="dropdown-search"
+              type="text"
+              [(ngModel)]="toSearch"
+              placeholder="Buscar..."
+              (click)="$event.stopPropagation()"
+              autofocus
+            />
+            <ul class="dropdown-list">
+              @for (c of filteredTo; track c) {
+                <li (click)="selectTo(c)">{{ c }}</li>
+              }
+              @if (filteredTo.length === 0) {
+                <li class="no-results">—</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+    </div>
+  }
+
+  <!-- Rate skeleton -->
+  @if (!currenciesLoading && loading) {
+    <div class="skeleton-wrap">
+      <div class="skeleton skeleton-rate"></div>
+      <div class="skeleton skeleton-meta"></div>
+      <div class="skeleton skeleton-conv"></div>
+    </div>
+  }
+
+  @if (!loading && error) {
+    <p class="error">{{ 'CURRENCY.ERROR' | translate }}</p>
+  }
+
+  @if (!loading && currentRate) {
+    <div class="rate-display">
+      <div class="rate-main">
+        <span class="rate-value">{{ currentRate.rate | number:'1.4-4' }}</span>
+        <span class="variation" [class.up]="variation > 0" [class.down]="variation < 0">
+          {{ variation > 0 ? '▲' : '▼' }}
+          {{ (variation < 0 ? -variation : variation) | number:'1.2-2' }}%
+        </span>
+      </div>
+      <div class="rate-sub">
+        <span class="pair-label">{{ currentRate.from }} / {{ currentRate.to }}</span>
+        <span class="timestamp">{{ 'CURRENCY.UPDATED' | translate:{ minutes: minutesAgo } }}</span>
+      </div>
+    </div>
+
+    <!-- Converter -->
+    <div class="converter">
+      <div class="converter-input-row">
+        <input
+          type="number"
+          [(ngModel)]="amount"
+          min="0"
+          placeholder="0.00"
+          class="amount-input"
+        />
+        <span class="conv-from">{{ selectedFrom }}</span>
+      </div>
+      <div class="converter-result">
+        <span class="eq">=</span>
+        <span class="result-value">{{ convertedAmount | number:'1.4-4' }}</span>
+        <span class="result-currency">{{ selectedTo }}</span>
+      </div>
+    </div>
+  }
+</div>

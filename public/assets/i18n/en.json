@@ -1,0 +1,72 @@
+{
+  "NAV": {
+    "WEATHER": "Weather",
+    "CURRENCY": "Currency",
+    "LOGOUT": "Sign out",
+    "THEME_LIGHT": "Light mode",
+    "THEME_DARK": "Dark mode",
+    "ABOUT": "About"
+  },
+  "WEATHER": {
+    "TITLE": "Weather",
+    "SEARCH_PLACEHOLDER": "Search city...",
+    "ERROR_NOT_FOUND": "City not found",
+    "ERROR_NETWORK": "Service unavailable"
+  },
+  "CURRENCY": {
+    "TITLE": "Currency",
+    "ERROR": "Could not load exchange rate",
+    "UPDATED": "Updated {{minutes}} min ago",
+    "AMOUNT_PLACEHOLDER": "0.00"
+  },
+  "LOGIN": {
+    "TITLE": "KO2 Platform",
+    "USERNAME_LABEL": "Username",
+    "PASSWORD_LABEL": "Password",
+    "USERNAME_PLACEHOLDER": "Username",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "SUBMIT": "Sign in",
+    "LOADING": "Signing in...",
+    "ERROR": "Incorrect username or password"
+  },
+  "ABOUT": {
+    "TITLE": "Technical Overview",
+    "SUBTITLE": "Final Degree Project · Multiplatform Application Development",
+    "CLOSE": "Close",
+    "HOOK": "A production-ready microservices platform that aggregates external data with intelligent caching, reducing outbound API calls by over 90%.",
+    "ARCH_TITLE": "System Architecture",
+    "ARCH_DESC": "Microservices architecture with an API Gateway as the sole public entry point. The gateway validates JWT tokens, checks Redis for revoked tokens, and injects user context into headers before forwarding requests to the appropriate service.",
+    "STACK_TITLE": "Technology Stack",
+    "SECURITY_TITLE": "Security",
+    "SECURITY_JWT": "JWT HS256 · 1-hour expiration",
+    "SECURITY_BCRYPT": "BCrypt password hashing in the database",
+    "SECURITY_BLACKLIST": "Token blacklist in Redis with dynamic TTL — on logout, the token is invalidated server-side, eliminating orphaned tokens without cleanup jobs",
+    "SECURITY_RBAC": "RBAC: ROLE_USER accesses weather and currency data. ROLE_ADMIN can also clear the cache",
+    "SECURITY_HEADERS": "Identity propagation between microservices via X-User-Name and X-User-Roles headers",
+    "CACHE_TITLE": "Multi-level Cache",
+    "CACHE_DESC": "Cascading cache system that minimizes calls to external APIs. In production, this reduces outgoing requests by over 90%.",
+    "CACHE_L1": "Redis (Railway) · 10 min TTL · key: currency:EUR:USD",
+    "CACHE_L2": "MySQL (Aiven) · warm cache · if fetchedAt < 10 min → use DB data",
+    "CACHE_L3": "External API · open.er-api.com for currencies · Open-Meteo for weather",
+    "CACHE_L4": "Fallback · stale DB data if external API fails · stale data beats HTTP 500",
+    "DECISIONS_TITLE": "Technical Decisions",
+    "DECISION_REDIS_TITLE": "Redis blacklist with dynamic TTL",
+    "DECISION_REDIS_DESC": "The token self-expires in Redis at the same time as the JWT. No periodic cleanup jobs or purge logic required.",
+    "DECISION_WEBFLUX_TITLE": "WebFlux only in the Gateway",
+    "DECISION_WEBFLUX_DESC": "The Gateway is purely I/O-bound: it forwards requests without computation. Internal services use Spring MVC, where reactive complexity adds no value.",
+    "DECISION_FALLBACK_TITLE": "Fallback to stale data",
+    "DECISION_FALLBACK_DESC": "Availability over freshness: slightly stale data is preferable to a 500 error that leaves the screen blank.",
+    "DECISION_HEADERS_TITLE": "Header-based auth between services",
+    "DECISION_HEADERS_DESC": "The Gateway is the trust boundary. Internal services trust the X-User-Name and X-User-Roles headers without re-validating JWT internally.",
+    "DECISION_STANDALONE_TITLE": "Angular standalone components",
+    "DECISION_STANDALONE_DESC": "Direct lazy-loading without NgModules, optimal tree-shaking, and faster builds. Aligned with the official framework direction since Angular 17.",
+    "DECISION_RXJS_TITLE": "RxJS switchMap + debounceTime",
+    "DECISION_RXJS_DESC": "Automatically cancels previous requests and waits 500ms before firing a search, eliminating race conditions and unnecessary API calls.",
+    "DEPLOY_TITLE": "Infrastructure & Deployment",
+    "DEPLOY_BACKEND": "Backend on Hetzner VPS · Docker Compose · 3 containers (gateway, auth, api)",
+    "DEPLOY_FRONTEND": "Frontend on Vercel · global CDN · ko2-oreilly.com domain",
+    "DEPLOY_DB": "MySQL managed on Aiven · Redis managed on Railway · no data infrastructure maintenance",
+    "DEPLOY_APIS": "External APIs: open.er-api.com (currencies) · Open-Meteo (weather, free without API key)",
+    "SWAGGER_LABEL": "Explore live API →"
+  }
+}

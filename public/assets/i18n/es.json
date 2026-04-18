@@ -1,0 +1,72 @@
+{
+  "NAV": {
+    "WEATHER": "Tiempo",
+    "CURRENCY": "Divisas",
+    "LOGOUT": "Cerrar sesión",
+    "THEME_LIGHT": "Modo claro",
+    "THEME_DARK": "Modo oscuro",
+    "ABOUT": "Sobre el proyecto"
+  },
+  "WEATHER": {
+    "TITLE": "Tiempo",
+    "SEARCH_PLACEHOLDER": "Buscar ciudad...",
+    "ERROR_NOT_FOUND": "Ciudad no encontrada",
+    "ERROR_NETWORK": "Servicio no disponible"
+  },
+  "CURRENCY": {
+    "TITLE": "Divisas",
+    "ERROR": "No se pudo cargar la divisa",
+    "UPDATED": "Actualizado hace {{minutes}} min",
+    "AMOUNT_PLACEHOLDER": "0.00"
+  },
+  "LOGIN": {
+    "TITLE": "KO2 Platform",
+    "USERNAME_LABEL": "Usuario",
+    "PASSWORD_LABEL": "Contraseña",
+    "USERNAME_PLACEHOLDER": "Usuario",
+    "PASSWORD_PLACEHOLDER": "Contraseña",
+    "SUBMIT": "Iniciar sesión",
+    "LOADING": "Entrando...",
+    "ERROR": "Usuario o contraseña incorrectos"
+  },
+  "ABOUT": {
+    "TITLE": "Presentación técnica",
+    "SUBTITLE": "Proyecto Final de Ciclo · Desarrollo de Aplicaciones Multiplataforma",
+    "CLOSE": "Cerrar",
+    "HOOK": "Plataforma de microservicios lista para producción que agrega datos externos con caché inteligente, reduciendo más del 90% de las llamadas salientes a APIs externas.",
+    "ARCH_TITLE": "Arquitectura del sistema",
+    "ARCH_DESC": "Arquitectura de microservicios con API Gateway como único punto de entrada público. El gateway valida JWT, consulta Redis para tokens revocados e inyecta contexto de usuario en headers antes de reenviar la petición al servicio correspondiente.",
+    "STACK_TITLE": "Stack tecnológico",
+    "SECURITY_TITLE": "Seguridad",
+    "SECURITY_JWT": "JWT HS256 · expiración 1 hora",
+    "SECURITY_BCRYPT": "BCrypt para hashing de contraseñas en base de datos",
+    "SECURITY_BLACKLIST": "Token blacklist en Redis con TTL dinámico — al hacer logout el token se invalida en servidor, eliminando tokens huérfanos sin jobs de limpieza",
+    "SECURITY_RBAC": "RBAC: ROLE_USER accede a datos meteorológicos y de divisas. ROLE_ADMIN puede además limpiar la caché",
+    "SECURITY_HEADERS": "Propagación de identidad entre microservicios vía headers X-User-Name y X-User-Roles",
+    "CACHE_TITLE": "Caché multinivel",
+    "CACHE_DESC": "Sistema de caché en cascada que minimiza las llamadas a APIs externas. En producción reduce más del 90% de las peticiones salientes.",
+    "CACHE_L1": "Redis (Railway) · TTL 10 min · clave: currency:EUR:USD",
+    "CACHE_L2": "MySQL (Aiven) · warm cache · si fetchedAt < 10 min → usar dato de BD",
+    "CACHE_L3": "API externa · open.er-api.com para divisas · Open-Meteo para meteorología",
+    "CACHE_L4": "Fallback · datos obsoletos de BD si la API externa falla · dato antiguo mejor que error 500",
+    "DECISIONS_TITLE": "Decisiones técnicas",
+    "DECISION_REDIS_TITLE": "Redis blacklist con TTL dinámico",
+    "DECISION_REDIS_DESC": "El token se autoexpira en Redis al mismo tiempo que el JWT. No requiere jobs de limpieza periódica ni lógica adicional de purga.",
+    "DECISION_WEBFLUX_TITLE": "WebFlux solo en el Gateway",
+    "DECISION_WEBFLUX_DESC": "El Gateway es I/O-bound puro: reenvía peticiones sin computación. Los servicios internos usan Spring MVC, donde la complejidad reactiva no aporta valor.",
+    "DECISION_FALLBACK_TITLE": "Fallback a datos obsoletos",
+    "DECISION_FALLBACK_DESC": "Disponibilidad sobre frescura: un dato con posible desfase es preferible a un error 500 que deja la pantalla en blanco.",
+    "DECISION_HEADERS_TITLE": "Header-based auth entre microservicios",
+    "DECISION_HEADERS_DESC": "El Gateway es la frontera de confianza. Los servicios internos confían en los headers X-User-Name y X-User-Roles sin revalidar JWT internamente.",
+    "DECISION_STANDALONE_TITLE": "Angular standalone components",
+    "DECISION_STANDALONE_DESC": "Lazy-loading directo sin NgModules, tree-shaking óptimo y compilación más rápida. Alineado con la dirección oficial del framework desde Angular 17.",
+    "DECISION_RXJS_TITLE": "RxJS switchMap + debounceTime",
+    "DECISION_RXJS_DESC": "Cancela peticiones previas automáticamente y espera 500ms antes de disparar la búsqueda, eliminando race conditions y llamadas innecesarias a la API.",
+    "DEPLOY_TITLE": "Infraestructura y despliegue",
+    "DEPLOY_BACKEND": "Backend en Hetzner VPS · Docker Compose · 3 contenedores (gateway, auth, api)",
+    "DEPLOY_FRONTEND": "Frontend en Vercel · CDN global · dominio ko2-oreilly.com",
+    "DEPLOY_DB": "MySQL gestionado en Aiven · Redis gestionado en Railway · sin mantenimiento de infraestructura de datos",
+    "DEPLOY_APIS": "APIs externas: open.er-api.com (divisas) · Open-Meteo (meteorología, gratuita sin API key)",
+    "SWAGGER_LABEL": "Explorar API en vivo →"
+  }
+}

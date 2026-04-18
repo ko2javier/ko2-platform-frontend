@@ -1,0 +1,284 @@
+.widget {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  height: 100%;
+  box-sizing: border-box;
+  transition: background var(--t), border-color var(--t), box-shadow var(--t);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  .label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-3);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .icon { font-size: 1rem; color: var(--accent-text); }
+}
+
+// ── Currencies loading ─────────────────────────────────────────────
+.currencies-loading {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.mini-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ── Pair selector ─────────────────────────────────────────────────
+.pair-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+
+  .arrow {
+    color: var(--text-3);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+}
+
+// ── Custom searchable select ──────────────────────────────────────
+.custom-select {
+  flex: 1;
+  position: relative;
+}
+
+.select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-1);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 0.65rem;
+  cursor: pointer;
+  transition: border-color var(--t), background var(--t);
+  letter-spacing: 0.5px;
+
+  &:hover, .custom-select.open & { border-color: var(--border-focus); }
+
+  .chevron {
+    font-size: 0.65rem;
+    color: var(--text-3);
+    margin-left: 0.25rem;
+  }
+}
+
+.select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-drop);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.dropdown-search {
+  display: block;
+  width: 100%;
+  background: var(--bg-surface);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 0.82rem;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+
+  &::placeholder { color: var(--text-4); }
+}
+
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0;
+  max-height: 160px;
+  overflow-y: auto;
+
+  li {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-2);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background var(--t), color var(--t);
+
+    &:hover {
+      background: var(--accent-subtle);
+      color: var(--accent-text);
+    }
+
+    &.no-results {
+      color: var(--text-3);
+      cursor: default;
+      font-weight: 400;
+      &:hover { background: none; }
+    }
+  }
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+}
+
+// ── Skeleton ──────────────────────────────────────────────────────
+@keyframes shimmer {
+  0%   { background-position: -300px 0; }
+  100% { background-position: 300px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-raised) 25%, var(--bg-hover) 50%, var(--bg-raised) 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+  border-radius: 6px;
+}
+
+.skeleton-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+}
+
+.skeleton-rate { height: 2.5rem; width: 60%; }
+.skeleton-meta { height: 0.85rem; width: 40%; }
+.skeleton-conv { height: 1.5rem; width: 80%; margin-top: 0.5rem; }
+
+// ── Rate display ──────────────────────────────────────────────────
+.rate-display {
+  .rate-main {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .rate-value {
+    font-size: 2.6rem;
+    font-weight: 300;
+    color: var(--text-1);
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+
+  .variation {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+
+    &.up   { color: var(--green); background: var(--green-subtle); }
+    &.down { color: var(--red);   background: var(--red-subtle); }
+  }
+
+  .rate-sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .pair-label { font-size: 0.85rem; font-weight: 600; color: var(--text-3); }
+  .timestamp  { font-size: 0.72rem; color: var(--text-4); }
+}
+
+// ── Converter ─────────────────────────────────────────────────────
+.converter {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+
+  .converter-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.875rem;
+
+    .amount-input {
+      flex: 1;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-2);       /* subdued — no compite con el resultado */
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem;
+      outline: none;
+      transition: border-color var(--t), background var(--t), color var(--t);
+      min-width: 0;
+
+      &:focus {
+        border-color: var(--border-focus);
+        background: var(--bg-input);
+        color: var(--text-1);
+      }
+      &::placeholder { color: var(--text-4); }
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button { opacity: 0.4; }
+    }
+
+    .conv-from {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-3);
+      flex-shrink: 0;
+    }
+  }
+
+  .converter-result {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+
+    .eq { color: var(--text-4); font-size: 0.9rem; }
+
+    /* Resultado en verde esmeralda — elemento dominante */
+    .result-value {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--green);
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+
+    .result-currency {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--green);
+      opacity: 0.75;
+    }
+  }
+}
+
+.error { color: var(--red); font-size: 0.85rem; }

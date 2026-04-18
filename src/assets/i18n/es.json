@@ -1,0 +1,31 @@
+{
+  "NAV": {
+    "WEATHER": "Tiempo",
+    "CURRENCY": "Divisas",
+    "LOGOUT": "Cerrar sesión",
+    "THEME_LIGHT": "Modo claro",
+    "THEME_DARK": "Modo oscuro"
+  },
+  "WEATHER": {
+    "TITLE": "Tiempo",
+    "SEARCH_PLACEHOLDER": "Buscar ciudad...",
+    "ERROR_NOT_FOUND": "Ciudad no encontrada",
+    "ERROR_NETWORK": "Servicio no disponible"
+  },
+  "CURRENCY": {
+    "TITLE": "Divisas",
+    "ERROR": "No se pudo cargar la divisa",
+    "UPDATED": "Actualizado hace {{minutes}} min",
+    "AMOUNT_PLACEHOLDER": "0.00"
+  },
+  "LOGIN": {
+    "TITLE": "KO2 Platform",
+    "USERNAME_LABEL": "Usuario",
+    "PASSWORD_LABEL": "Contraseña",
+    "USERNAME_PLACEHOLDER": "Usuario",
+    "PASSWORD_PLACEHOLDER": "Contraseña",
+    "SUBMIT": "Iniciar sesión",
+    "LOADING": "Entrando...",
+    "ERROR": "Usuario o contraseña incorrectos"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "NAV": {
+    "WEATHER": "Wetter",
+    "CURRENCY": "Währung",
+    "LOGOUT": "Abmelden",
+    "THEME_LIGHT": "Heller Modus",
+    "THEME_DARK": "Dunkler Modus",
+    "ABOUT": "Über das Projekt"
+  },
+  "WEATHER": {
+    "TITLE": "Wetter",
+    "SEARCH_PLACEHOLDER": "Stadt suchen...",
+    "ERROR_NOT_FOUND": "Stadt nicht gefunden",
+    "ERROR_NETWORK": "Dienst nicht verfügbar"
+  },
+  "CURRENCY": {
+    "TITLE": "Währung",
+    "ERROR": "Wechselkurs konnte nicht geladen werden",
+    "UPDATED": "Aktualisiert vor {{minutes}} Min.",
+    "AMOUNT_PLACEHOLDER": "0.00"
+  },
+  "LOGIN": {
+    "TITLE": "KO2 Platform",
+    "USERNAME_LABEL": "Benutzername",
+    "PASSWORD_LABEL": "Passwort",
+    "USERNAME_PLACEHOLDER": "Benutzername",
+    "PASSWORD_PLACEHOLDER": "Passwort",
+    "SUBMIT": "Anmelden",
+    "LOADING": "Anmelden...",
+    "ERROR": "Falscher Benutzername oder Passwort"
+  },
+  "ABOUT": {
+    "TITLE": "Technische Präsentation",
+    "SUBTITLE": "Abschlussprojekt · Multiplattform-Anwendungsentwicklung",
+    "CLOSE": "Schließen",
+    "HOOK": "Eine produktionsreife Microservices-Plattform, die externe Daten mit intelligentem Caching aggregiert und ausgehende API-Aufrufe um über 90 % reduziert.",
+    "ARCH_TITLE": "Systemarchitektur",
+    "ARCH_DESC": "Microservices-Architektur mit API Gateway als einzigem öffentlichen Einstiegspunkt. Das Gateway validiert JWT-Tokens, prüft Redis auf widerrufene Tokens und injiziert Benutzerkontext in Header, bevor Anfragen weitergeleitet werden.",
+    "STACK_TITLE": "Technologie-Stack",
+    "SECURITY_TITLE": "Sicherheit",
+    "SECURITY_JWT": "JWT HS256 · 1 Stunde Ablaufzeit",
+    "SECURITY_BCRYPT": "BCrypt-Passwort-Hashing in der Datenbank",
+    "SECURITY_BLACKLIST": "Token-Blacklist in Redis mit dynamischem TTL — beim Logout wird der Token serverseitig invalidiert, ohne Cleanup-Jobs",
+    "SECURITY_RBAC": "RBAC: ROLE_USER greift auf Wetter- und Währungsdaten zu. ROLE_ADMIN kann zusätzlich den Cache leeren",
+    "SECURITY_HEADERS": "Identitätsweitergabe zwischen Microservices über X-User-Name und X-User-Roles Header",
+    "CACHE_TITLE": "Mehrstufiger Cache",
+    "CACHE_DESC": "Kaskadierendes Cache-System, das externe API-Aufrufe minimiert. Im Produktivbetrieb werden über 90 % der ausgehenden Anfragen reduziert.",
+    "CACHE_L1": "Redis (Railway) · 10 Min. TTL · Schlüssel: currency:EUR:USD",
+    "CACHE_L2": "MySQL (Aiven) · Warm Cache · wenn fetchedAt < 10 Min. → DB-Daten verwenden",
+    "CACHE_L3": "Externe API · open.er-api.com für Währungen · Open-Meteo für Wetter",
+    "CACHE_L4": "Fallback · veraltete DB-Daten bei API-Ausfall · veraltete Daten besser als HTTP 500",
+    "DECISIONS_TITLE": "Technische Entscheidungen",
+    "DECISION_REDIS_TITLE": "Redis-Blacklist mit dynamischem TTL",
+    "DECISION_REDIS_DESC": "Der Token läuft in Redis zum gleichen Zeitpunkt wie das JWT ab. Keine periodischen Bereinigungsjobs oder Purge-Logik erforderlich.",
+    "DECISION_WEBFLUX_TITLE": "WebFlux nur im Gateway",
+    "DECISION_WEBFLUX_DESC": "Das Gateway ist rein I/O-gebunden: es leitet Anfragen ohne Berechnung weiter. Interne Dienste nutzen Spring MVC, wo reaktive Komplexität keinen Mehrwert bringt.",
+    "DECISION_FALLBACK_TITLE": "Fallback auf veraltete Daten",
+    "DECISION_FALLBACK_DESC": "Verfügbarkeit vor Aktualität: leicht veraltete Daten sind einem 500-Fehler vorzuziehen, der den Bildschirm leer lässt.",
+    "DECISION_HEADERS_TITLE": "Header-basierte Auth zwischen Diensten",
+    "DECISION_HEADERS_DESC": "Das Gateway ist die Vertrauensgrenze. Interne Dienste vertrauen den X-User-Name und X-User-Roles Headern ohne interne JWT-Revalidierung.",
+    "DECISION_STANDALONE_TITLE": "Angular Standalone Components",
+    "DECISION_STANDALONE_DESC": "Direktes Lazy-Loading ohne NgModules, optimales Tree-Shaking und schnellere Builds. Entspricht der offiziellen Framework-Richtung seit Angular 17.",
+    "DECISION_RXJS_TITLE": "RxJS switchMap + debounceTime",
+    "DECISION_RXJS_DESC": "Bricht vorherige Anfragen automatisch ab und wartet 500ms vor dem Absenden der Suche — verhindert Race Conditions und unnötige API-Aufrufe.",
+    "DEPLOY_TITLE": "Infrastruktur & Deployment",
+    "DEPLOY_BACKEND": "Backend auf Hetzner VPS · Docker Compose · 3 Container (Gateway, Auth, API)",
+    "DEPLOY_FRONTEND": "Frontend auf Vercel · globales CDN · Domain ko2-oreilly.com",
+    "DEPLOY_DB": "MySQL verwaltet auf Aiven · Redis verwaltet auf Railway · kein Datenbankinfrastruktur-Wartungsaufwand",
+    "DEPLOY_APIS": "Externe APIs: open.er-api.com (Währungen) · Open-Meteo (Wetter, kostenlos ohne API-Key)",
+    "SWAGGER_LABEL": "Live-API erkunden →"
+  }
+}

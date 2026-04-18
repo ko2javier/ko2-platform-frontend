@@ -1,0 +1,111 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// ── Design Tokens (dark mode – default) ──────────────────────────
+:root {
+  /* Page backgrounds */
+  --bg-page:    #0F172A;
+  --bg-surface: #1A2236;
+  --bg-raised:  #243044;
+  --bg-input:   #111827;
+  --bg-hover:   #1E2D45;
+
+  /* Sidebar / Topbar */
+  --sidebar-bg:          #131C2E;
+  --sidebar-border:      #1A2848;
+  --sidebar-link:        #64748B;
+  --sidebar-link-hover:  #94A3B8;
+  --sidebar-hover-bg:    #1A2848;
+  --sidebar-active-bg:   #312E81;   /* indigo-900, desaturado */
+  --sidebar-active-text: #C7D2FE;  /* indigo-200 */
+  --sidebar-brand:       #818CF8;  /* indigo-400 */
+  --topbar-bg:           #131C2E;
+  --topbar-border:       #1A2848;
+
+  /* Borders */
+  --border:       #1E2D45;
+  --border-soft:  #131D2F;
+  --border-focus: #4F46E5;
+
+  /* Text (text-1 = body, text-2 = secondary, text-3 = muted, text-4 = faint) */
+  --text-1: #E2E8F0;
+  --text-2: #94A3B8;
+  --text-3: #64748B;
+  --text-4: #475569;
+
+  /* Accent – indigo, menos eléctrico que azul */
+  --accent:        #4F46E5;
+  --accent-hover:  #4338CA;
+  --accent-text:   #818CF8;
+  --accent-subtle: rgba(79, 70, 229, 0.14);
+
+  /* Status */
+  --green:        #10B981;
+  --green-subtle: rgba(16, 185, 129, 0.13);
+  --red:          #F87171;
+  --red-subtle:   rgba(248, 113, 113, 0.12);
+
+  /* Shadows */
+  --shadow-card:  0 1px 3px rgba(0,0,0,0.3),  0 4px 16px rgba(0,0,0,0.2);
+  --shadow-drop:  0 8px 24px rgba(0,0,0,0.4);
+  --shadow-modal: 0 24px 64px rgba(0,0,0,0.55);
+
+  /* Motion */
+  --t: 200ms ease;
+}
+
+// ── Light mode – sólo redefinición de tokens ──────────────────────
+body.light-mode {
+  --bg-page:    #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-raised:  #F1F5F9;
+  --bg-input:   #FFFFFF;
+  --bg-hover:   #F1F5F9;
+
+  --sidebar-bg:          #FFFFFF;
+  --sidebar-border:      #E2E8F0;
+  --sidebar-link:        #64748B;
+  --sidebar-link-hover:  #1E293B;
+  --sidebar-hover-bg:    #F1F5F9;
+  --sidebar-active-bg:   #2563EB;
+  --sidebar-active-text: #FFFFFF;
+  --sidebar-brand:       #2563EB;
+  --topbar-bg:           #FFFFFF;
+  --topbar-border:       #E2E8F0;
+
+  --border:       #E2E8F0;
+  --border-soft:  #F1F5F9;
+  --border-focus: #2563EB;
+
+  --text-1: #0F172A;
+  --text-2: #1E293B;
+  --text-3: #64748B;
+  --text-4: #94A3B8;
+
+  --accent:        #2563EB;
+  --accent-hover:  #1D4ED8;
+  --accent-text:   #2563EB;
+  --accent-subtle: rgba(37, 99, 235, 0.08);
+
+  --shadow-card:  0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-drop:  0 8px 24px rgba(0,0,0,0.12);
+  --shadow-modal: 0 24px 64px rgba(0,0,0,0.18);
+
+  ::-webkit-scrollbar-track { background: #E2E8F0; }
+  ::-webkit-scrollbar-thumb { background: #94A3B8; }
+}
+
+// ── Base ──────────────────────────────────────────────────────────
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #1E293B; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }

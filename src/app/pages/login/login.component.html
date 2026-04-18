@@ -1,0 +1,61 @@
+<div class="login-page">
+
+  <!-- Top controls -->
+  <div class="login-controls">
+    <div class="seg-control">
+      <div class="seg-pill" [style.transform]="'translateX(calc(' + langIndex + ' * 100%))'"></div>
+      @for (lang of langs; track lang) {
+        <button class="seg-btn" [class.active]="currentLang === lang" (click)="setLang(lang)">
+          {{ lang.toUpperCase() }}
+        </button>
+      }
+    </div>
+    <button class="btn-theme" (click)="toggleTheme()">
+      {{ isDark ? '☀️' : '🌙' }}
+    </button>
+  </div>
+
+  <div class="login-card">
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <div class="logo-badge">KO2</div>
+    </div>
+
+    <div class="login-header">
+      <h1>{{ 'LOGIN.TITLE' | translate }}</h1>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">{{ 'LOGIN.USERNAME_LABEL' | translate }}</label>
+        <input
+          id="username"
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          [placeholder]="'LOGIN.USERNAME_PLACEHOLDER' | translate"
+          required
+          autocomplete="username"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">{{ 'LOGIN.PASSWORD_LABEL' | translate }}</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          [placeholder]="'LOGIN.PASSWORD_PLACEHOLDER' | translate"
+          required
+          autocomplete="current-password"
+        />
+      </div>
+      @if (error) {
+        <p class="error">{{ error | translate }}</p>
+      }
+      <button type="submit" [disabled]="loading">
+        {{ (loading ? 'LOGIN.LOADING' : 'LOGIN.SUBMIT') | translate }}
+      </button>
+    </form>
+  </div>
+</div>

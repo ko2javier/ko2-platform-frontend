@@ -1,0 +1,212 @@
+.widget {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  height: 100%;
+  box-sizing: border-box;
+  transition: background var(--t), border-color var(--t), box-shadow var(--t);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  .label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-3);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .icon {
+    font-size: 1rem;
+    color: var(--accent-text);
+  }
+}
+
+// ── Search ────────────────────────────────────────────────────────
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  margin-bottom: 1rem;
+  transition: border-color var(--t), background var(--t);
+
+  &:focus-within { border-color: var(--border-focus); }
+
+  .search-icon {
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    opacity: 0.45;
+  }
+
+  input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-1);
+    font-size: 0.85rem;
+    width: 100%;
+
+    &::placeholder { color: var(--text-4); }
+  }
+}
+
+// ── History chips ─────────────────────────────────────────────────
+.history-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.875rem;
+
+  .chip {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-3);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.65rem;
+    cursor: pointer;
+    transition: background var(--t), color var(--t), border-color var(--t);
+
+    &:hover {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
+  }
+}
+
+// ── Spinner ───────────────────────────────────────────────────────
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ── Weather body ──────────────────────────────────────────────────
+.weather-body {
+  .city-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+
+    .city {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-1);
+    }
+
+    .badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      background: var(--accent-subtle);
+      color: var(--accent-text);
+      border: 1px solid var(--accent);
+    }
+  }
+
+  .temp {
+    font-size: 3.25rem;
+    font-weight: 300;
+    color: var(--accent-text);
+    line-height: 1.1;
+    margin: 0.3rem 0 0.875rem;
+    letter-spacing: -1px;
+  }
+
+  .details {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-3);
+      transition: color var(--t);
+
+      .detail-icon { font-size: 1.1rem; }
+    }
+
+    /* Humidity — blue tint */
+    .detail-humidity {
+      color: #38BDF8;
+    }
+
+    /* Wind — muted gray */
+    .detail-wind {
+      color: var(--text-3);
+    }
+
+    /* Visibility — faint */
+    .detail-vis {
+      color: var(--text-4);
+    }
+  }
+
+  .sparkline {
+    margin-top: 0.5rem;
+    overflow: hidden;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 56px;
+    }
+
+    .spark-bar {
+      fill: var(--accent);
+      opacity: 0.5;
+      transition: opacity var(--t), fill var(--t);
+
+      &:hover {
+        opacity: 1;
+        fill: var(--accent-text);
+      }
+    }
+
+    .sparkline-labels {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-4);
+      font-size: 0.65rem;
+      margin-top: 0.3rem;
+    }
+  }
+}
+
+.error {
+  color: var(--red);
+  font-size: 0.85rem;
+  padding: 0.5rem 0;
+}

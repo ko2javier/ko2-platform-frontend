@@ -1,0 +1,309 @@
+@if (isOpen) {
+  <div class="modal-backdrop" (click)="onBackdropClick($event)">
+    <div class="modal" role="dialog" aria-modal="true">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="header-left">
+          <div class="logo-badge">KO2</div>
+          <div>
+            <h2>{{ 'ABOUT.TITLE' | translate }}</h2>
+            <p class="subtitle">{{ 'ABOUT.SUBTITLE' | translate }}</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <!-- Segmented lang control -->
+          <div class="seg-control">
+            <div class="seg-pill" [style.transform]="'translateX(calc(' + langIndex + ' * 100%))'"></div>
+            @for (lang of langs; track lang) {
+              <button class="seg-btn" [class.active]="currentLang === lang" (click)="setLang(lang)">
+                {{ lang.toUpperCase() }}
+              </button>
+            }
+          </div>
+          <button class="btn-close" (click)="close()" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <!-- Scrollable content -->
+      <div class="modal-body">
+
+        <!-- 1. Hook headline -->
+        <section class="section">
+          <p class="hook-headline">{{ 'ABOUT.HOOK' | translate }}</p>
+        </section>
+
+        <!-- 2. Architecture -->
+        <section class="section">
+          <h3 class="section-title">
+            <span class="section-icon">🏗</span>
+            {{ 'ABOUT.ARCH_TITLE' | translate }}
+          </h3>
+
+          <!-- Desktop SVG diagram -->
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" class="arch-diagram">
+              <defs>
+                <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L8,3 z" fill="#4f46e5"/>
+                </marker>
+              </defs>
+
+              <!-- Browser / Frontend -->
+              <rect x="10" y="10" width="160" height="64" rx="10" class="node node-frontend"/>
+              <text x="90" y="33" class="node-label">Angular 19</text>
+              <text x="90" y="51" class="node-sub">Vercel · ko2-oreilly.com</text>
+              <text x="90" y="65" class="node-sub">TypeScript · SCSS · RxJS</text>
+
+              <line x1="90" y1="74" x2="90" y2="118" class="edge" marker-end="url(#arrow)"/>
+              <text x="97" y="100" class="edge-label">HTTPS + JWT</text>
+
+              <!-- Gateway -->
+              <rect x="10" y="120" width="160" height="64" rx="10" class="node node-gateway"/>
+              <text x="90" y="143" class="node-label">API Gateway</text>
+              <text x="90" y="160" class="node-sub">Spring Cloud Gateway</text>
+              <text x="90" y="175" class="node-sub">:7000 · WebFlux</text>
+
+              <!-- Gateway → Redis -->
+              <line x1="170" y1="152" x2="240" y2="152" class="edge" marker-end="url(#arrow)"/>
+              <text x="175" y="147" class="edge-label">blacklist?</text>
+
+              <!-- Redis -->
+              <rect x="242" y="120" width="130" height="64" rx="10" class="node node-redis"/>
+              <text x="307" y="143" class="node-label">Redis</text>
+              <text x="307" y="160" class="node-sub">Railway · TTL 10 min</text>
+              <text x="307" y="175" class="node-sub">Token blacklist · Cache</text>
+
+              <!-- Gateway → Auth -->
+              <line x1="90" y1="184" x2="90" y2="230" class="edge" marker-end="url(#arrow)"/>
+              <text x="97" y="212" class="edge-label">/auth/**</text>
+
+              <!-- Auth Service -->
+              <rect x="10" y="232" width="160" height="64" rx="10" class="node node-auth"/>
+              <text x="90" y="255" class="node-label">Auth Service</text>
+              <text x="90" y="272" class="node-sub">Spring Boot · :4000</text>
+              <text x="90" y="287" class="node-sub">JWT · BCrypt · RBAC</text>
+
+              <!-- Gateway → API -->
+              <line x1="170" y1="184" x2="410" y2="232" class="edge" marker-end="url(#arrow)"/>
+              <text x="265" y="213" class="edge-label">/weather/** /currency/**</text>
+
+              <!-- API Service -->
+              <rect x="412" y="232" width="160" height="64" rx="10" class="node node-api"/>
+              <text x="492" y="255" class="node-label">API Service</text>
+              <text x="492" y="272" class="node-sub">Spring Boot · :5000</text>
+              <text x="492" y="287" class="node-sub">Cache multinivel</text>
+
+              <!-- MySQL -->
+              <rect x="412" y="120" width="160" height="64" rx="10" class="node node-db"/>
+              <text x="492" y="143" class="node-label">MySQL</text>
+              <text x="492" y="160" class="node-sub">Aiven Cloud</text>
+              <text x="492" y="175" class="node-sub">users · roles · cache</text>
+
+              <!-- Auth → MySQL -->
+              <line x1="170" y1="264" x2="412" y2="182" class="edge" marker-end="url(#arrow)"/>
+
+              <!-- API → MySQL -->
+              <line x1="492" y1="232" x2="492" y2="184" class="edge" marker-end="url(#arrow)"/>
+
+              <!-- External APIs -->
+              <rect x="620" y="232" width="130" height="64" rx="10" class="node node-ext"/>
+              <text x="685" y="255" class="node-label">APIs externas</text>
+              <text x="685" y="272" class="node-sub">open.er-api.com</text>
+              <text x="685" y="287" class="node-sub">Open-Meteo</text>
+
+              <line x1="572" y1="264" x2="620" y2="264" class="edge" marker-end="url(#arrow)"/>
+              <text x="574" y="258" class="edge-label">on cache miss</text>
+
+              <!-- Hetzner boundary -->
+              <rect x="0" y="108" width="760" height="200" rx="12" class="infra-box"/>
+              <text x="14" y="124" class="infra-label">Hetzner VPS · Docker Compose</text>
+            </svg>
+          </div>
+
+          <!-- Mobile fallback -->
+          <div class="arch-mobile">
+            <div class="arch-node">Angular SPA · Vercel</div>
+            <div class="arch-arrow">↓ HTTPS + JWT</div>
+            <div class="arch-node">API Gateway :7000 · WebFlux</div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-group">
+              <div class="arch-node">Auth Service :4000 · JWT · BCrypt</div>
+              <div class="arch-node">API Service :5000 · Cache multinivel</div>
+            </div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-group">
+              <div class="arch-node">MySQL · Aiven</div>
+              <div class="arch-node">Redis · Railway</div>
+              <div class="arch-node">open.er-api · Open-Meteo</div>
+            </div>
+          </div>
+
+          <p class="section-desc">{{ 'ABOUT.ARCH_DESC' | translate }}</p>
+        </section>
+
+        <!-- 3. Stack -->
+        <section class="section">
+          <h3 class="section-title">
+            <span class="section-icon">⚡</span>
+            {{ 'ABOUT.STACK_TITLE' | translate }}
+          </h3>
+          <div class="stack-grid">
+            <div class="stack-card">
+              <div class="stack-card-title">Frontend</div>
+              <div class="tag-list">
+                <span class="tag tag-blue">Angular 19</span>
+                <span class="tag tag-blue">TypeScript 5</span>
+                <span class="tag tag-blue">RxJS 7</span>
+                <span class="tag tag-blue">SCSS</span>
+                <span class="tag tag-blue">ngx-translate 17</span>
+                <span class="tag tag-blue">Standalone Components</span>
+              </div>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-title">Backend</div>
+              <div class="tag-list">
+                <span class="tag tag-green">Java 21</span>
+                <span class="tag tag-green">Spring Boot 3</span>
+                <span class="tag tag-green">Spring Cloud Gateway</span>
+                <span class="tag tag-green">Spring WebFlux</span>
+                <span class="tag tag-green">Spring Data JPA</span>
+                <span class="tag tag-green">Spring Security</span>
+              </div>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-title">Infraestructura</div>
+              <div class="tag-list">
+                <span class="tag tag-purple">Hetzner VPS</span>
+                <span class="tag tag-purple">Docker Compose</span>
+                <span class="tag tag-purple">Vercel CDN</span>
+                <span class="tag tag-purple">MySQL · Aiven</span>
+                <span class="tag tag-purple">Redis · Railway</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Security -->
+        <section class="section">
+          <h3 class="section-title">
+            <span class="section-icon">🔐</span>
+            {{ 'ABOUT.SECURITY_TITLE' | translate }}
+          </h3>
+          <ul class="feature-list">
+            <li><span class="dot dot-blue"></span>{{ 'ABOUT.SECURITY_JWT' | translate }}</li>
+            <li><span class="dot dot-blue"></span>{{ 'ABOUT.SECURITY_BCRYPT' | translate }}</li>
+            <li><span class="dot dot-blue"></span>{{ 'ABOUT.SECURITY_BLACKLIST' | translate }}</li>
+            <li><span class="dot dot-blue"></span>{{ 'ABOUT.SECURITY_RBAC' | translate }}</li>
+            <li><span class="dot dot-blue"></span>{{ 'ABOUT.SECURITY_HEADERS' | translate }}</li>
+          </ul>
+        </section>
+
+        <!-- 5. Cache multinivel -->
+        <section class="section">
+          <h3 class="section-title">
+            <span class="section-icon">⚡</span>
+            {{ 'ABOUT.CACHE_TITLE' | translate }}
+          </h3>
+          <p class="section-desc">{{ 'ABOUT.CACHE_DESC' | translate }}</p>
+          <div class="cache-cascade">
+            <div class="cache-level">
+              <div class="cache-badge">L1</div>
+              <div class="cache-text">{{ 'ABOUT.CACHE_L1' | translate }}</div>
+            </div>
+            <div class="cache-arrow">↓ miss</div>
+            <div class="cache-level">
+              <div class="cache-badge">L2</div>
+              <div class="cache-text">{{ 'ABOUT.CACHE_L2' | translate }}</div>
+            </div>
+            <div class="cache-arrow">↓ miss</div>
+            <div class="cache-level">
+              <div class="cache-badge">L3</div>
+              <div class="cache-text">{{ 'ABOUT.CACHE_L3' | translate }}</div>
+            </div>
+            <div class="cache-arrow">↓ fail</div>
+            <div class="cache-level cache-fallback">
+              <div class="cache-badge badge-warn">FB</div>
+              <div class="cache-text">{{ 'ABOUT.CACHE_L4' | translate }}</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Technical decisions (visual blocks) -->
+        <section class="section">
+          <h3 class="section-title">
+            <span class="section-icon">🧩</span>
+            {{ 'ABOUT.DECISIONS_TITLE' | translate }}
+          </h3>
+          <div class="decision-grid">
+            <div class="decision-card">
+              <p class="decision-title">{{ 'ABOUT.DECISION_REDIS_TITLE' | translate }}</p>
+              <p class="decision-desc">{{ 'ABOUT.DECISION_REDIS_DESC' | translate }}</p>
+            </div>
+            <div class="decision-card">
+              <p class="decision-title">{{ 'ABOUT.DECISION_WEBFLUX_TITLE' | translate }}</p>
+              <p class="decision-desc">{{ 'ABOUT.DECISION_WEBFLUX_DESC' | translate }}</p>
+            </div>
+            <div class="decision-card">
+              <p class="decision-title">{{ 'ABOUT.DECISION_FALLBACK_TITLE' | translate }}</p>
+              <p class="decision-desc">{{ 'ABOUT.DECISION_FALLBACK_DESC' | translate }}</p>
+            </div>
+            <div class="decision-card">
+              <p class="decision-title">{{ 'ABOUT.DECISION_HEADERS_TITLE' | translate }}</p>
+              <p class="decision-desc">{{ 'ABOUT.DECISION_HEADERS_DESC' | translate }}</p>
+            </div>
+            <div class="decision-card">
+              <p class="decision-title">{{ 'ABOUT.DECISION_STANDALONE_TITLE' | translate }}</p>
+              <p class="decision-desc">{{ 'ABOUT.DECISION_STANDALONE_DESC' | translate }}</p>
+            </div>
+            <div class="decision-card">
+              <p class="decision-title">{{ 'ABOUT.DECISION_RXJS_TITLE' | translate }}</p>
+              <p class="decision-desc">{{ 'ABOUT.DECISION_RXJS_DESC' | translate }}</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Infrastructure -->
+        <section class="section">
+          <h3 class="section-title">
+            <span class="section-icon">🚀</span>
+            {{ 'ABOUT.DEPLOY_TITLE' | translate }}
+          </h3>
+          <div class="deploy-grid">
+            <div class="deploy-card">
+              <div class="deploy-icon">🖥</div>
+              <div class="deploy-text">{{ 'ABOUT.DEPLOY_BACKEND' | translate }}</div>
+            </div>
+            <div class="deploy-card">
+              <div class="deploy-icon">🌐</div>
+              <div class="deploy-text">{{ 'ABOUT.DEPLOY_FRONTEND' | translate }}</div>
+            </div>
+            <div class="deploy-card">
+              <div class="deploy-icon">🗄</div>
+              <div class="deploy-text">{{ 'ABOUT.DEPLOY_DB' | translate }}</div>
+            </div>
+            <div class="deploy-card">
+              <div class="deploy-icon">🔌</div>
+              <div class="deploy-text">{{ 'ABOUT.DEPLOY_APIS' | translate }}</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. Swagger CTA -->
+        <section class="section section-last">
+          <div class="swagger-cta">
+            <a
+              class="btn-swagger"
+              href="http://167.235.77.17:7000/webjars/swagger-ui/index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ 'ABOUT.SWAGGER_LABEL' | translate }}
+            </a>
+          </div>
+        </section>
+
+      </div><!-- /modal-body -->
+    </div>
+  </div>
+}
