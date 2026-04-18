@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://hub.ko2-oreilly.com'
+  apiUrl: 'https://api.ko2-oreilly.com'
 };
