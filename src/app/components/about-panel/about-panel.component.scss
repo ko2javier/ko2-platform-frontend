@@ -149,6 +149,9 @@
   overflow-y: auto;
   padding: 1.5rem;
   flex: 1;
+  max-width: 70ch;
+  margin-inline: auto;
+  width: 100%;
 
   &::-webkit-scrollbar { width: 5px; }
   &::-webkit-scrollbar-track { background: transparent; }
@@ -207,6 +210,7 @@
   padding: 1rem;
   margin-bottom: 1rem;
   overflow-x: auto;
+  box-shadow: inset 0 0 0 1px var(--border-soft);
 }
 
 .arch-diagram {

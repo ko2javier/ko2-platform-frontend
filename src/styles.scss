@@ -8,8 +8,8 @@
 :root {
   /* Page backgrounds */
   --bg-page:    #0F172A;
-  --bg-surface: #1A2236;
-  --bg-raised:  #243044;
+  --bg-surface: #1E293B;
+  --bg-raised:  #243553;
   --bg-input:   #111827;
   --bg-hover:   #1E2D45;
 
@@ -19,28 +19,28 @@
   --sidebar-link:        #64748B;
   --sidebar-link-hover:  #94A3B8;
   --sidebar-hover-bg:    #1A2848;
-  --sidebar-active-bg:   #312E81;   /* indigo-900, desaturado */
-  --sidebar-active-text: #C7D2FE;  /* indigo-200 */
-  --sidebar-brand:       #818CF8;  /* indigo-400 */
-  --topbar-bg:           #131C2E;
-  --topbar-border:       #1A2848;
+  --sidebar-active-bg:   #312E81;
+  --sidebar-active-text: #C7D2FE;
+  --sidebar-brand:       #38BDF8;
+  --topbar-bg:           rgba(15, 23, 42, 0.8);
+  --topbar-border:       rgba(30, 41, 59, 0.7);
 
   /* Borders */
   --border:       #1E2D45;
   --border-soft:  #131D2F;
-  --border-focus: #4F46E5;
+  --border-focus: #38BDF8;
 
   /* Text (text-1 = body, text-2 = secondary, text-3 = muted, text-4 = faint) */
-  --text-1: #E2E8F0;
+  --text-1: #F8FAFC;
   --text-2: #94A3B8;
   --text-3: #64748B;
   --text-4: #475569;
 
-  /* Accent – indigo, menos eléctrico que azul */
-  --accent:        #4F46E5;
-  --accent-hover:  #4338CA;
-  --accent-text:   #818CF8;
-  --accent-subtle: rgba(79, 70, 229, 0.14);
+  /* Accent – sky blue */
+  --accent:        #38BDF8;
+  --accent-hover:  #0EA5E9;
+  --accent-text:   #38BDF8;
+  --accent-subtle: rgba(56, 189, 248, 0.14);
 
   /* Status */
   --green:        #10B981;
@@ -59,11 +59,11 @@
 
 // ── Light mode – sólo redefinición de tokens ──────────────────────
 body.light-mode {
-  --bg-page:    #F8FAFC;
+  --bg-page:    #F1F5F9;
   --bg-surface: #FFFFFF;
   --bg-raised:  #F1F5F9;
   --bg-input:   #FFFFFF;
-  --bg-hover:   #F1F5F9;
+  --bg-hover:   #E2E8F0;
 
   --sidebar-bg:          #FFFFFF;
   --sidebar-border:      #E2E8F0;
@@ -73,15 +73,15 @@ body.light-mode {
   --sidebar-active-bg:   #2563EB;
   --sidebar-active-text: #FFFFFF;
   --sidebar-brand:       #2563EB;
-  --topbar-bg:           #FFFFFF;
-  --topbar-border:       #E2E8F0;
+  --topbar-bg:           rgba(255, 255, 255, 0.7);
+  --topbar-border:       rgba(226, 232, 240, 0.8);
 
   --border:       #E2E8F0;
   --border-soft:  #F1F5F9;
   --border-focus: #2563EB;
 
   --text-1: #0F172A;
-  --text-2: #1E293B;
+  --text-2: #64748B;
   --text-3: #64748B;
   --text-4: #94A3B8;
 

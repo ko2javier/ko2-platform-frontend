@@ -260,14 +260,17 @@
     display: flex;
     align-items: baseline;
     gap: 0.5rem;
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    background: rgba(74, 222, 128, 0.08);
+    margin-top: 0.25rem;
 
     .eq { color: var(--text-4); font-size: 0.9rem; }
 
-    /* Resultado en verde esmeralda — elemento dominante */
     .result-value {
       font-size: 2rem;
       font-weight: 600;
-      color: var(--green);
+      color: #4ADE80;
       line-height: 1;
       letter-spacing: -0.5px;
     }
@@ -275,10 +278,19 @@
     .result-currency {
       font-size: 0.9rem;
       font-weight: 700;
-      color: var(--green);
-      opacity: 0.75;
+      color: #4ADE80;
+      opacity: 0.85;
     }
   }
 }
 
 .error { color: var(--red); font-size: 0.85rem; }
+
+// ── Light mode overrides ──────────────────────────────────────────
+:host-context(body.light-mode) {
+  .converter-result {
+    background: #F0FDF4;
+
+    .result-value, .result-currency { color: #16A34A; }
+  }
+}

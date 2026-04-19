@@ -1,14 +1,4 @@
 <div class="shell">
-  <aside class="sidebar">
-    <div class="brand">KO2</div>
-    <div class="sidebar-bottom">
-      <button class="btn-about" (click)="showAbout = true" [title]="'NAV.ABOUT' | translate">
-        <span class="about-icon">ℹ</span>
-        <span class="about-label">{{ 'NAV.ABOUT' | translate }}</span>
-      </button>
-    </div>
-  </aside>
-
   <div class="main">
     <header class="topbar">
       <span class="platform-name">KO2 Platform</span>
@@ -31,7 +21,7 @@
           }
         </div>
 
-        <!-- User pill: avatar + name + theme toggle + logout -->
+        <!-- User pill: avatar + name + theme toggle + about + logout -->
         <div class="user-pill">
           <span class="user-avatar">{{ username.charAt(0).toUpperCase() }}</span>
           <span class="user-name">{{ username }}</span>
@@ -39,6 +29,7 @@
             [title]="(isDark ? 'NAV.THEME_LIGHT' : 'NAV.THEME_DARK') | translate">
             {{ isDark ? '☀️' : '🌙' }}
           </button>
+          <button class="btn-about-icon" (click)="showAbout = true" [title]="'NAV.ABOUT' | translate">ℹ</button>
           <span class="pill-sep"></span>
           <button class="btn-logout" (click)="logout()">{{ 'NAV.LOGOUT' | translate }}</button>
         </div>
@@ -47,12 +38,6 @@
     </header>
     <main class="content">
       <router-outlet />
-      <div class="mobile-about">
-        <button class="btn-about" (click)="showAbout = true">
-          <span class="about-icon">ℹ</span>
-          <span class="about-label">{{ 'NAV.ABOUT' | translate }}</span>
-        </button>
-      </div>
     </main>
   </div>
 </div>
