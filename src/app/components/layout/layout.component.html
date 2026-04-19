@@ -11,6 +11,11 @@
       }
       <div class="topbar-actions">
 
+        <!-- Architecture CTA -->
+        <button class="btn-architecture" (click)="showAbout = true">
+          Architecture
+        </button>
+
         <!-- Segmented language control -->
         <div class="seg-control">
           <div class="seg-pill" [style.transform]="'translateX(calc(' + langIndex + ' * 100%))'"></div>
@@ -29,7 +34,6 @@
             [title]="(isDark ? 'NAV.THEME_LIGHT' : 'NAV.THEME_DARK') | translate">
             {{ isDark ? '☀️' : '🌙' }}
           </button>
-          <button class="btn-about-icon" (click)="showAbout = true" [title]="'NAV.ABOUT' | translate">ℹ</button>
           <span class="pill-sep"></span>
           <button class="btn-logout" (click)="logout()">{{ 'NAV.LOGOUT' | translate }}</button>
         </div>
