@@ -11,6 +11,8 @@ Angular 19 SPA — dashboard for real-time weather and currency exchange data, w
 
 > Test credentials — `user` / `user123` or `admin` / `admin123`
 
+![KO2 Platform Dashboard](public/dashboard.png)
+
 ---
 
 ## Features
