@@ -1,59 +1,87 @@
-# Ko2Platform
+# KO2 Platform — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+![Angular](https://img.shields.io/badge/Angular-19-DD0031?logo=angular)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-## Development server
+Angular 19 SPA — dashboard for real-time weather and currency exchange data, with JWT authentication, route guards, and multilingual support. Part of the [KO2 Platform](https://github.com/ko2javier/server-infrastructure) microservices ecosystem.
 
-To start a local development server, run:
+**Live:** [hub.ko2-oreilly.com](https://hub.ko2-oreilly.com)
+
+> Test credentials — `user` / `user123` or `admin` / `admin123`
+
+---
+
+## Features
+
+- **JWT auth flow** — login, token storage, automatic injection via HTTP interceptor, logout
+- **Route guards** — unauthenticated users are redirected to login
+- **Weather widget** — search any city, displays temperature and conditions
+- **Currency widget** — live exchange rates for any base currency
+- **i18n** — Spanish, English, and German via ngx-translate
+- **Standalone components** — no NgModules, Angular 19 architecture
+
+## Tech stack
+
+| | |
+|---|---|
+| Framework | Angular 19 |
+| Language | TypeScript 5 |
+| Auth | JWT — HTTP interceptor attaches `Authorization: Bearer` on every request |
+| i18n | ngx-translate (ES / EN / DE) |
+| HTTP | Angular HttpClient + RxJS |
+| Deploy | Vercel (automatic on push to `main`) |
+| Backend | [KO2 Platform API Gateway](https://github.com/ko2javier/server-infrastructure) |
+
+## Architecture
+
+```
+src/
+├── app/
+│   ├── pages/
+│   │   ├── login/          ← login form, calls /auth/login
+│   │   └── dashboard/      ← main view with widgets
+│   ├── components/
+│   │   ├── weather-widget/ ← weather search + display
+│   │   ├── currency-widget/← exchange rate display
+│   │   └── layout/         ← sidebar + topbar
+│   ├── services/
+│   │   ├── auth.service.ts     ← login/logout, token management
+│   │   ├── weather.service.ts  ← GET /weather/{city}
+│   │   └── currency.service.ts ← GET /currency/{base}
+│   ├── guards/
+│   │   └── auth.guard.ts   ← redirects unauthenticated users
+│   └── interceptors/
+│       └── auth.interceptor.ts ← attaches JWT to every request
+└── environments/
+    ├── environment.ts          ← localhost:7000
+    └── environment.prod.ts     ← api.ko2-oreilly.com
+```
+
+## Local setup
 
 ```bash
+git clone https://github.com/ko2javier/ko2-platform-frontend.git
+cd ko2-platform-frontend
+npm install
 ng serve
+# → http://localhost:4200
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Requires the backend running locally or pointing `environment.ts` to `https://api.ko2-oreilly.com`.
 
-## Code scaffolding
+## Part of the KO2 Platform
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+Frontend (Angular 19 · Vercel)  ← this repo
+    └── API Gateway :7000
+            ├── Auth Service :4000
+            └── API Service :5000  ← weather + currency + cache
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+→ [server-infrastructure](https://github.com/ko2javier/server-infrastructure) — full architecture, Docker Compose, live demo credentials
 
-```bash
-ng generate --help
-```
+## License
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+MIT
