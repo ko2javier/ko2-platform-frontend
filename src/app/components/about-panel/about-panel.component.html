@@ -40,109 +40,28 @@
             {{ 'ABOUT.ARCH_TITLE' | translate }}
           </h3>
 
-          <!-- Desktop SVG diagram -->
           <div class="diagram-wrap">
-            <svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" class="arch-diagram">
-              <defs>
-                <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                  <path d="M0,0 L0,6 L8,3 z" fill="#4f46e5"/>
-                </marker>
-              </defs>
-
-              <!-- Browser / Frontend -->
-              <rect x="10" y="10" width="160" height="64" rx="10" class="node node-frontend"/>
-              <text x="90" y="33" class="node-label">Angular 19</text>
-              <text x="90" y="51" class="node-sub">Vercel · ko2-oreilly.com</text>
-              <text x="90" y="65" class="node-sub">TypeScript · SCSS · RxJS</text>
-
-              <line x1="90" y1="74" x2="90" y2="118" class="edge" marker-end="url(#arrow)"/>
-              <text x="97" y="100" class="edge-label">HTTPS + JWT</text>
-
-              <!-- Gateway -->
-              <rect x="10" y="120" width="160" height="64" rx="10" class="node node-gateway"/>
-              <text x="90" y="143" class="node-label">API Gateway</text>
-              <text x="90" y="160" class="node-sub">Spring Cloud Gateway</text>
-              <text x="90" y="175" class="node-sub">:7000 · WebFlux</text>
-
-              <!-- Gateway → Redis -->
-              <line x1="170" y1="152" x2="240" y2="152" class="edge" marker-end="url(#arrow)"/>
-              <text x="175" y="147" class="edge-label">blacklist?</text>
-
-              <!-- Redis -->
-              <rect x="242" y="120" width="130" height="64" rx="10" class="node node-redis"/>
-              <text x="307" y="143" class="node-label">Redis</text>
-              <text x="307" y="160" class="node-sub">Railway · TTL 10 min</text>
-              <text x="307" y="175" class="node-sub">Token blacklist · Cache</text>
-
-              <!-- Gateway → Auth -->
-              <line x1="90" y1="184" x2="90" y2="230" class="edge" marker-end="url(#arrow)"/>
-              <text x="97" y="212" class="edge-label">/auth/**</text>
-
-              <!-- Auth Service -->
-              <rect x="10" y="232" width="160" height="64" rx="10" class="node node-auth"/>
-              <text x="90" y="255" class="node-label">Auth Service</text>
-              <text x="90" y="272" class="node-sub">Spring Boot · :4000</text>
-              <text x="90" y="287" class="node-sub">JWT · BCrypt · RBAC</text>
-
-              <!-- Gateway → API -->
-              <line x1="170" y1="184" x2="410" y2="232" class="edge" marker-end="url(#arrow)"/>
-              <text x="265" y="213" class="edge-label">/weather/** /currency/**</text>
-
-              <!-- API Service -->
-              <rect x="412" y="232" width="160" height="64" rx="10" class="node node-api"/>
-              <text x="492" y="255" class="node-label">API Service</text>
-              <text x="492" y="272" class="node-sub">Spring Boot · :5000</text>
-              <text x="492" y="287" class="node-sub">Cache multinivel</text>
-
-              <!-- MySQL -->
-              <rect x="412" y="120" width="160" height="64" rx="10" class="node node-db"/>
-              <text x="492" y="143" class="node-label">MySQL</text>
-              <text x="492" y="160" class="node-sub">Aiven Cloud</text>
-              <text x="492" y="175" class="node-sub">users · roles · cache</text>
-
-              <!-- Auth → MySQL -->
-              <line x1="170" y1="264" x2="412" y2="182" class="edge" marker-end="url(#arrow)"/>
-
-              <!-- API → MySQL -->
-              <line x1="492" y1="232" x2="492" y2="184" class="edge" marker-end="url(#arrow)"/>
-
-              <!-- External APIs -->
-              <rect x="620" y="232" width="130" height="64" rx="10" class="node node-ext"/>
-              <text x="685" y="255" class="node-label">APIs externas</text>
-              <text x="685" y="272" class="node-sub">open.er-api.com</text>
-              <text x="685" y="287" class="node-sub">Open-Meteo</text>
-
-              <line x1="572" y1="264" x2="620" y2="264" class="edge" marker-end="url(#arrow)"/>
-              <text x="574" y="258" class="edge-label">on cache miss</text>
-
-              <!-- Hetzner boundary -->
-              <rect x="0" y="108" width="760" height="200" rx="12" class="infra-box"/>
-              <text x="14" y="124" class="infra-label">Hetzner VPS · Docker Compose</text>
-            </svg>
-          </div>
-
-          <!-- Mobile fallback -->
-          <div class="arch-mobile">
-            <div class="arch-node">Angular SPA · Vercel</div>
-            <div class="arch-arrow">↓ HTTPS + JWT</div>
-            <div class="arch-node">API Gateway :7000 · WebFlux</div>
-            <div class="arch-arrow">↓</div>
-            <div class="arch-group">
-              <div class="arch-node">Auth Service :4000 · JWT · BCrypt</div>
-              <div class="arch-node">API Service :5000 · Cache multinivel</div>
-            </div>
-            <div class="arch-arrow">↓</div>
-            <div class="arch-group">
-              <div class="arch-node">MySQL · Aiven</div>
-              <div class="arch-node">Redis · Railway</div>
-              <div class="arch-node">open.er-api · Open-Meteo</div>
-            </div>
+            <img class="arch-img" src="assets/images/arquitectura.png" alt="KO2 Architecture Diagram" />
           </div>
 
           <p class="section-desc">{{ 'ABOUT.ARCH_DESC' | translate }}</p>
         </section>
 
-        <!-- 3. Stack -->
+        <!-- 3. Event-Driven -->
+        <section class="section">
+          <h3 class="section-title">
+            <span class="section-icon">📡</span>
+            {{ 'ABOUT.EVENT_TITLE' | translate }}
+          </h3>
+          <p class="section-desc">{{ 'ABOUT.EVENT_DESC' | translate }}</p>
+          <ul class="feature-list">
+            <li><span class="dot dot-blue"></span>{{ 'ABOUT.EVENT_KAFKA' | translate }}</li>
+            <li><span class="dot dot-blue"></span>{{ 'ABOUT.EVENT_TOPICS' | translate }}</li>
+            <li><span class="dot dot-blue"></span>{{ 'ABOUT.EVENT_AUDIT' | translate }}</li>
+          </ul>
+        </section>
+
+        <!-- 4. Stack -->
         <section class="section">
           <h3 class="section-title">
             <span class="section-icon">⚡</span>
@@ -169,6 +88,8 @@
                 <span class="tag tag-green">Spring WebFlux</span>
                 <span class="tag tag-green">Spring Data JPA</span>
                 <span class="tag tag-green">Spring Security</span>
+                <span class="tag tag-green">Spring Kafka</span>
+                <span class="tag tag-green">ko2-kafka-events :6000</span>
               </div>
             </div>
             <div class="stack-card">
@@ -179,6 +100,8 @@
                 <span class="tag tag-purple">Vercel CDN</span>
                 <span class="tag tag-purple">MySQL · Aiven</span>
                 <span class="tag tag-purple">Redis · Railway</span>
+                <span class="tag tag-purple">Apache Kafka KRaft</span>
+                <span class="tag tag-purple">Prometheus</span>
               </div>
             </div>
           </div>
@@ -259,6 +182,10 @@
             <div class="decision-card">
               <p class="decision-title">{{ 'ABOUT.DECISION_RXJS_TITLE' | translate }}</p>
               <p class="decision-desc">{{ 'ABOUT.DECISION_RXJS_DESC' | translate }}</p>
+            </div>
+            <div class="decision-card">
+              <p class="decision-title">{{ 'ABOUT.DECISION_KAFKA_TITLE' | translate }}</p>
+              <p class="decision-desc">{{ 'ABOUT.DECISION_KAFKA_DESC' | translate }}</p>
             </div>
           </div>
         </section>
