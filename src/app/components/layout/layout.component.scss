@@ -141,6 +141,9 @@
 
 // ── Architecture CTA button ────────────────────────────────────────
 .btn-architecture {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
   background: var(--accent);
   border: none;
   border-radius: 8px;
